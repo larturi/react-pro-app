@@ -2,7 +2,7 @@
 
 .productCard {
     background-color: white;
-    border-radius: 15px;
+    border-radius: 7px;
     color: black;
     padding-bottom: 5px;
     width: 250px;
@@ -11,12 +11,15 @@
 }
 
 .productImg {
-    border-radius: 15px 15px 0px 0px;
+    border-radius: 7px 7px 0px 0px;
     width: 100%;
+    margin-bottom: 6px;
 }
 
 .productDescription {
     margin: 10px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .buttonsContainer {
