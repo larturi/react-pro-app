@@ -27,7 +27,18 @@ export const ShoppingPage = () => {
     const [ shoppingCart, setShoppingCart ] = useState<{ [key:string]: ProductInCart }>({});
 
     const onProductQuantityChange = ({quantity, product}: {quantity: number, product: Product}) => {
-        console.log(quantity, product);
+        setShoppingCart(oldShoppingCart => {
+
+            if (quantity === 0) {
+                const { [product.id]: toDelete, ...rest  } = oldShoppingCart;
+                return rest;
+            }
+                
+            return {
+                ...oldShoppingCart,
+                [product.id]: { ...product, quantity}
+            }
+        });
     }
  
     return (
@@ -58,24 +69,26 @@ export const ShoppingPage = () => {
             </div>
 
             <div className='shopping-cart'>
-                <ProductCard 
-                    product={product2}
-                    className='bg-dark text-white'
-                    style={{ width: '100px' }}
-                >
-                    <ProductImage className='custom-image' />  
-                    <ProductButtons className='custom-buttons' style={{ marginTop: '-9px' }} />
-                </ProductCard>
-
-                <ProductCard 
-                    product={product1}
-                    className='bg-dark text-white'
-                    style={{ width: '100px' }}
-                >
-                    <ProductImage className='custom-image' />  
-                    <ProductButtons className='custom-buttons' style={{ marginTop: '-9px' }} />
-                </ProductCard>
+               {
+                     Object.keys(shoppingCart).map(key => {
+                            const product = shoppingCart[key];
+                            return (
+                                <ProductCard 
+                                    key={product.id}
+                                    product={product}
+                                    className='bg-dark text-white'
+                                    style={{ width: '100px' }}
+                                    value={product.quantity}
+                                >
+                                    <ProductImage className='custom-image' />  
+                                    <ProductButtons className='custom-buttons' style={{ marginTop: '-9px' }} />
+                                </ProductCard>
+                            )
+                        }
+                    )
+               }
             </div>
+
         </div>
     )
 }
