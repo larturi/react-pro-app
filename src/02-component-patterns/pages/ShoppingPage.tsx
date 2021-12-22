@@ -2,45 +2,14 @@ import { ProductButtons, ProductCard, ProductImage, ProductTitle } from '../comp
 
 import '../styles/custom-styles.css';
 import { Product } from '../interfaces/interfaces';
-import { useState } from 'react';
+import { useShoppingCart } from '../hooks/useShoppingCart';
 
-const product1 = {
-    id: '1',
-    title: 'Cofee Mug',
-    img: './coffee-mug.png',
-}
-
-const product2 = {
-    id: '2',
-    title: 'Cofee Mug Meme',
-    img: './coffee-mug2.png',
-}
-
-const products: Product[] = [product1, product2];
-
-interface ProductInCart extends Product {
-    quantity: number;
-}
+import { products } from '../data/products';
 
 export const ShoppingPage = () => {
 
-    const [ shoppingCart, setShoppingCart ] = useState<{ [key:string]: ProductInCart }>({});
+    const { onProductQuantityChange, shoppingCart } = useShoppingCart();
 
-    const onProductQuantityChange = ({quantity, product}: {quantity: number, product: Product}) => {
-        setShoppingCart(oldShoppingCart => {
-
-            if (quantity === 0) {
-                const { [product.id]: toDelete, ...rest  } = oldShoppingCart;
-                return rest;
-            }
-                
-            return {
-                ...oldShoppingCart,
-                [product.id]: { ...product, quantity}
-            }
-        });
-    }
- 
     return (
         <div>
             <h1>ShoppingStore</h1>
@@ -59,6 +28,7 @@ export const ShoppingPage = () => {
                             product={product}
                             className='bg-dark text-white'
                             onChange={ onProductQuantityChange }
+                            value={ shoppingCart[product.id] ? shoppingCart[product.id].quantity : 0 }
                         >
                             <ProductImage className='custom-image' />  
                             <ProductTitle className='text-bold' />
@@ -78,6 +48,7 @@ export const ShoppingPage = () => {
                                     product={product}
                                     className='bg-dark text-white'
                                     style={{ width: '100px' }}
+                                    onChange={ onProductQuantityChange }
                                     value={product.quantity}
                                 >
                                     <ProductImage className='custom-image' />  

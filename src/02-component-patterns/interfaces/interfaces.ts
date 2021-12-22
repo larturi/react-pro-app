@@ -26,3 +26,7 @@ export interface OnChangeArgs {
     product: Product;
     quantity: number;
 }
+
+export interface ProductInCart extends Product {
+    quantity: number;
+}
