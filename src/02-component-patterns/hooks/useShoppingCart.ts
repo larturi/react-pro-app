@@ -8,19 +8,15 @@ export const useShoppingCart = () => {
     const onProductQuantityChange = ({quantity, product}: {quantity: number, product: Product}) => {
         setShoppingCart(oldShoppingCart => {
 
-            const productInCart: ProductInCart = oldShoppingCart[product.id] || {...product, quantity: 0};
+           if (quantity === 0) {
+                const { [product.id]: toDelete, ...rest } = oldShoppingCart;
+                return rest;
+           }
 
-            if (Math.max(productInCart.quantity + quantity, 0) > 0) {
-                productInCart.quantity += quantity;
-                return {
-                    ...oldShoppingCart,
-                   [product.id]: productInCart
-                }
+           return {
+                ...oldShoppingCart,
+                [product.id]: { ...product, quantity }
             }
-
-            // Borrar el producto
-            const { [product.id]: toDelete, ...rest  } = oldShoppingCart;
-            return { ...rest };
                 
         });
     }
