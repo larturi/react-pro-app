@@ -1,26 +1,37 @@
-import { useEffect, useState } from 'react';
-import { OnChangeArgs, Product } from '../interfaces/interfaces';
+import { useEffect, useRef, useState } from 'react';
+import { InitialValues, OnChangeArgs, Product } from '../interfaces/interfaces';
 
 interface ProductArgs {
     product: Product;
     onChange?: (args: OnChangeArgs) => void;
     value?: number;
+    initialValues?: InitialValues;
 }
 
-export const useProduct = ({onChange, product, value = 0}: ProductArgs) => {
+export const useProduct = ({onChange, product, value = 0, initialValues}: ProductArgs) => {
 
-    const [counter, setCounter] = useState(value);
+    const [counter, setCounter] = useState<number>(initialValues?.quantity || value);
+    const isMouted = useRef(false);
 
     const increaseBy = (value: number) => {
-        const newValue = Math.max(counter + value, 0);
+        let newValue = Math.max(counter + value, 0);
+        if (initialValues?.maxQuantity) {
+            newValue = Math.min(newValue, initialValues.maxQuantity);
+        }
+
         setCounter(newValue);
 
         onChange && onChange({ quantity: newValue, product});
     }
 
     useEffect(() => {
+        if (!isMouted.current) return;
        setCounter(value);
-    }, [value])
+    }, [value]);
+
+    useEffect(() => {
+        isMouted.current = true;
+    }, []);
 
     return {
         increaseBy,
