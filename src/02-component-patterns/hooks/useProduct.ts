@@ -13,6 +13,10 @@ export const useProduct = ({onChange, product, value = 0, initialValues}: Produc
     const [counter, setCounter] = useState<number>(initialValues?.quantity || value);
     const isMouted = useRef(false);
 
+    const reset = () => {
+        setCounter(initialValues?.quantity || value);
+    };
+
     const increaseBy = (value: number) => {
         let newValue = Math.max(counter + value, 0);
         if (initialValues?.maxQuantity) {
@@ -22,7 +26,7 @@ export const useProduct = ({onChange, product, value = 0, initialValues}: Produc
         setCounter(newValue);
 
         onChange && onChange({ quantity: newValue, product});
-    }
+    };
 
     useEffect(() => {
         if (!isMouted.current) return;
@@ -34,7 +38,10 @@ export const useProduct = ({onChange, product, value = 0, initialValues}: Produc
     }, []);
 
     return {
-        increaseBy,
         counter,
+        isMaxQuantity: !!initialValues?.quantity && counter === initialValues.maxQuantity,
+        maxQuantity: initialValues?.maxQuantity,
+        increaseBy,
+        reset,
     }
 }

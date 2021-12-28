@@ -22,9 +22,21 @@ export const ShoppingPage = () => {
                     maxQuantity: 7,
                 }}
             >
-                <ProductImage className='custom-image' />  
-                <ProductTitle className='text-bold' />
-                <ProductButtons className='custom-buttons' />
+                {
+                    ({ reset, quantity, increaseBy, isMaxQuantity }) => (
+                        <>
+                            <ProductImage className='custom-image' />  
+                            <ProductTitle className='text-bold' />
+                            <ProductButtons className='custom-buttons' />
+
+                            <button onClick={reset}>Reset</button>
+
+                            { quantity > 0 ? <button onClick={() => increaseBy(-2)}>-2</button> : null }
+                            { !isMaxQuantity ? <button onClick={() => increaseBy(2)}>+2</button> : null }
+                        </>
+                    )
+                }
+                
             </ProductCard>
         </div>
     )
