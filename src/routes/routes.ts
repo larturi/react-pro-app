@@ -1,6 +1,6 @@
 import { LazyExoticComponent } from 'react';
+import { RegisterPage } from '../03-forms/pages/RegisterPage';
 import { About } from '../components/About';
-import { Home } from '../components/Home';
 import { Users } from '../components/Users';
 
 type JSXComponent = () => JSX.Element;
@@ -14,10 +14,10 @@ interface Route {
 
 export const routes: Route[] = [
     {
-        to: '/home',
-        path: 'home',
-        Component: Home,
-        name: 'Home',
+        to: '/register',
+        path: 'register',
+        Component: RegisterPage,
+        name: 'Register',
     },
     {
         to: '/about',
@@ -31,5 +31,5 @@ export const routes: Route[] = [
         Component: Users,
         name: 'Users',
     },
-
+   
 ]
