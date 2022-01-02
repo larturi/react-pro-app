@@ -5,7 +5,8 @@ form {
 }
 
 input, select {
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
     outline: none;
     padding: 10px;
 }
@@ -17,9 +18,12 @@ button {
 }
 
 span, .error-message {
-    color: red;
+    color: #ff7eff;
+    font-size: 12px;
+    margin-top: -12px;
+    margin-bottom: 10px;
 }
 
 .has-error {
-    border: 1px solid red;
+    border: 1px solid #ff7eff;
 }

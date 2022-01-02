@@ -4,7 +4,10 @@ import '../styles/styles.css';
 
 export const RegisterPage = () => {
 
-    const { onChange, formData, name, email, password1, password2 } = useForm({
+    const { 
+        formData, name, email, password1, password2, 
+        onChange, reset, isValidEmail
+    } = useForm({
         name: '',
         email: '',
         password1: '',
@@ -27,14 +30,20 @@ export const RegisterPage = () => {
                     placeholder="Name"
                     value={name}
                     onChange={ onChange }
+                    className={`${name.trim().length <= 0 && 'has-error'}`}
                 />
+                { name.trim().length <= 0 && <span>Campo obligatorio</span> }
+
                 <input 
                     name='email'
                     type="text" 
                     placeholder="Email"
                     value={email}
                     onChange={ onChange }
+                    className={`${!isValidEmail(email)  && 'has-error'}`}
                 />
+                { !isValidEmail(email) && <span>Email no es valido</span> }
+
                 <input 
                     name='password1'
                     type="password" 
@@ -42,14 +51,22 @@ export const RegisterPage = () => {
                     value={password1}
                     onChange={ onChange }
                 />
+                { password1.trim().length <= 0 && <span>Campo obligatorio</span> }
+                { password1.trim().length < 6 && password1.trim().length > 0 && <span>La contraseña tiene que tener al memos 6 caracteres</span> }
+
                 <input 
                     name='password2'
-                    type="password2" 
+                    type="password" 
                     placeholder="Repeat Password"
                     value={password2}
                     onChange={ onChange }
                 />
+                { password2.trim().length <= 0 && <span>Campo obligatorio</span> }
+                { password1 !== password2 && password2.trim().length > 0 && <span>Las contraseñas deben ser iguales</span> }
+
                 <button type="submit">Create</button>
+
+                <button type="button" onClick={reset}>Reset</button>
             </form>
         </div>
     )
