@@ -1,5 +1,7 @@
 import { LazyExoticComponent } from 'react';
+import { FormikAbstraction } from '../03-forms/pages/FormikAbstraction';
 import { FormikBasicPage } from '../03-forms/pages/FormikBasicPage';
+import { FormikComponents } from '../03-forms/pages/FormikComponents';
 import { FormikYupPage } from '../03-forms/pages/FormikYupPage';
 import { RegisterPage } from '../03-forms/pages/RegisterPage';
 
@@ -30,6 +32,18 @@ export const routes: Route[] = [
         path: 'formik-yup',
         Component: FormikYupPage,
         name: 'Formik Yup',
+    },
+    {
+        to: '/formik-components',
+        path: 'formik-components',
+        Component: FormikComponents,
+        name: 'Formik Components',
+    },
+    {
+        to: '/formik-abstraction',
+        path: 'formik-abstraction',
+        Component: FormikAbstraction,
+        name: 'Formik Abstraction',
     },
    
 ]
