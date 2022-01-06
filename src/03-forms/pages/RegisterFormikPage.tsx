@@ -1,5 +1,3 @@
-import { FormEvent } from 'react';
-import { useForm } from '../hooks/useForm';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
@@ -7,17 +5,6 @@ import '../styles/styles.css';
 import { MyTextInput } from '../components';
 
 export const RegisterFormikPage = () => {
-
-    const { 
-        formData, name, email, password1, password2, 
-        onChange, reset, isValidEmail
-    } = useForm({
-        name: '',
-        email: '',
-        password1: '',
-        password2: ''
-    });
-
 
     return (
         <div>
